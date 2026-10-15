@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeAlpha AI Internship Project Suite</title>
+  <meta name="description" content="Complete AI Internship project suite for CodeAlpha featuring Language Translation, NLP FAQ Chatbot, AI Music Generation, and Real-Time Object Detection & Tracking.">
+  <link rel="stylesheet" href="css/main.css">
+  <!-- TensorFlow.js and COCO-SSD for Task 4 -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.20.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.2/dist/coco-ssd.min.js"></script>
+</head>
+<body>
+
+  <div class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="brand-header">
+        <div class="brand-icon">🤖</div>
+        <div class="brand-title">
+          <h1>CodeAlpha AI</h1>
+          <p>Internship Suite</p>
+        </div>
+      </div>
+
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a class="nav-link active" data-tab="task1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m5 8 6 6M4 14e1 6 6M2 5h12M7 2h1M22 22l-5-10-5 10M14 18h6"/></svg>
+            <span>Task 1: Language Translator</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-tab="task2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>Task 2: FAQ NLP Chatbot</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-tab="task3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 18V5l12-2v13M9 9l12-2M6 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 16a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
+            <span>Task 3: AI Music Generator</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-tab="task4">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            <span>Task 4: Object Tracker</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="badge-codealpha">
+          <span>CodeAlpha AI Domain</span>
+          4/4 Tasks Implemented
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Display -->
+    <main class="main-content">
+      
+      <!-- TASK 1: LANGUAGE TRANSLATION TOOL -->
+      <section id="task1" class="tab-content active">
+        <div class="top-bar">
+          <div class="page-title">
+            <h2>Task 1: Language Translation Tool</h2>
+            <p>Translate text seamlessly across 30+ global languages with AI API, Voice Synthesis (TTS), & Copy</p>
+          </div>
+        </div>
+
+        <div class="translator-grid">
+          <!-- Source Box -->
+          <div class="glass-card translator-box">
+            <div class="box-header">
+              <select id="sourceLang" class="select-custom"></select>
+              <button id="speakSourceBtn" class="btn btn-secondary btn-icon-only" title="Listen to text">🔊</button>
+            </div>
+            <textarea id="sourceText" class="translator-textarea" placeholder="Type or paste text to translate..."></textarea>
+            <div class="box-footer">
+              <span id="charCount" class="char-counter">0 / 5000 characters</span>
+              <button id="translateBtn" class="btn btn-primary">Translate Text ✨</button>
+            </div>
+          </div>
+
+          <!-- Target Box -->
+          <div class="glass-card translator-box">
+            <div class="box-header">
+              <select id="targetLang" class="select-custom"></select>
+              <div class="action-buttons">
+                <button id="speakTargetBtn" class="btn btn-secondary btn-icon-only" title="Listen to translation">🔊</button>
+                <button id="copyTargetBtn" class="btn btn-secondary btn-icon-only" title="Copy to clipboard">📋</button>
+              </div>
+            </div>
+            <textarea id="targetText" class="translator-textarea" placeholder="Translation will appear here..." readonly></textarea>
+            <div class="box-footer" style="justify-content: flex-end;">
+              <span class="char-counter" style="color: var(--accent-emerald);">✔ Instant API Response</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="translator-controls">
+          <button id="swapLangBtn" class="swap-btn" title="Swap Source & Target Languages">⇆</button>
+        </div>
+
+        <!-- History Log -->
+        <div class="glass-card history-section">
+          <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">📜 Recent Translation History</h3>
+          <div id="historyList" class="history-list"></div>
+        </div>
+      </section>
+
+      <!-- TASK 2: FAQ CHATBOT -->
+      <section id="task2" class="tab-content">
+        <div class="top-bar">
+          <div class="page-title">
+            <h2>Task 2: Chatbot for FAQs</h2>
+            <p>NLP Preprocessing, TF-IDF Vectorization & Cosine Similarity Intent Matcher</p>
+          </div>
+        </div>
+
+        <div class="chatbot-container">
+          <!-- FAQ Topics Sidebar -->
+          <div class="glass-card sidebar-faq">
+            <h3 style="font-size: 1.05rem;">Knowledge Base</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Select a sample query to test similarity matching:</p>
+            <div id="faqTopicsContainer" class="faq-topic-list"></div>
+          </div>
+
+          <!-- Chat Messaging Window -->
+          <div class="glass-card chat-main">
+            <div class="chat-header">
+              <div class="bot-avatar">🤖</div>
+              <div>
+                <h3 style="font-size: 1.1rem;">CodeAlpha Support Bot</h3>
+                <p style="font-size: 0.8rem; color: var(--accent-emerald);">● Online (NLP Engine Active)</p>
+              </div>
+            </div>
+
+            <div id="chatMessages" class="chat-messages"></div>
+
+            <div class="chat-input-area">
+              <input type="text" id="chatInput" class="chat-input" placeholder="Ask a question (e.g. How many tasks do I need to submit?)...">
+              <button id="sendChatBtn" class="btn btn-primary">Send 💬</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TASK 3: AI MUSIC GENERATOR -->
+      <section id="task3" class="tab-content">
+        <div class="top-bar">
+          <div class="page-title">
+            <h2>Task 3: Music Generation with AI</h2>
+            <p>Deep Learning MIDI Note Sequence Generator & Interactive Synthesizer</p>
+          </div>
+          <div class="top-actions">
+            <button id="downloadMidiBtn" class="btn btn-secondary">💾 Download MIDI (.mid)</button>
+            <button id="generateMusicBtn" class="btn btn-primary">⚡ Generate AI Melody</button>
+          </div>
+        </div>
+
+        <div class="music-grid">
+          <!-- Controls -->
+          <div class="glass-card music-controls">
+            <h3 style="font-size: 1.1rem;">Studio Controls</h3>
+            
+            <div class="control-group">
+              <label>Genre & Model Style</label>
+              <select id="musicGenreSelect" class="select-custom" style="width: 100%;">
+                <option value="classical">🎹 Classical Piano (LSTM Model)</option>
+                <option value="jazz">🎷 Jazz Fusion (Pentatonic Blues)</option>
+                <option value="ambient">🌌 Ambient Chords (Spacial Drift)</option>
+                <option value="synthwave">🌆 80s Synthwave (Arpeggio)</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label>Tempo (BPM): <span id="tempoValDisplay" style="color: var(--primary); font-weight:700;">120 BPM</span></label>
+              <input type="range" id="tempoInput" class="range-slider" min="60" max="180" value="120">
+            </div>
+
+            <div class="playback-buttons" style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+              <button id="playMusicBtn" class="btn btn-primary" style="flex:1;">▶ Play AI Synth</button>
+              <button id="stopMusicBtn" class="btn btn-secondary">⏹ Stop</button>
+            </div>
+          </div>
+
+          <!-- Piano Roll Display -->
+          <div class="glass-card piano-roll-card">
+            <div class="piano-roll-header">
+              <h3 style="font-size: 1.1rem;">Piano Roll Note Visualizer</h3>
+              <div class="audio-visualizer-bars">
+                <div class="bar playing"></div>
+                <div class="bar playing" style="animation-delay: 0.1s;"></div>
+                <div class="bar playing" style="animation-delay: 0.2s;"></div>
+                <div class="bar playing" style="animation-delay: 0.3s;"></div>
+                <div class="bar playing" style="animation-delay: 0.4s;"></div>
+              </div>
+            </div>
+
+            <div class="piano-roll-canvas-container">
+              <canvas id="pianoRollCanvas" class="piano-roll"></canvas>
+            </div>
+
+            <div class="music-playback-bar">
+              <span style="font-size: 0.82rem; color: var(--text-muted);">Sequence: 32 Steps | 4/4 Time Signature</span>
+              <span style="font-size: 0.82rem; color: var(--accent-cyan); font-family: var(--font-mono);">Synthesizer: WebAudio Envelope Oscillators</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TASK 4: OBJECT DETECTION & TRACKING -->
+      <section id="task4" class="tab-content">
+        <div class="top-bar">
+          <div class="page-title">
+            <h2>Task 4: Object Detection & Real-Time Tracking</h2>
+            <p>Computer Vision with Bounding Boxes, Centroid/IoU Tracking IDs & Trajectory Paths</p>
+          </div>
+          <div class="top-actions">
+            <button id="startWebcamBtn" class="btn btn-primary">📷 Start Webcam</button>
+            <button id="demoModeBtn" class="btn btn-secondary">🎮 Launch Demo Mode</button>
+            <button id="stopVisionBtn" class="btn btn-secondary">🛑 Stop</button>
+          </div>
+        </div>
+
+        <div class="vision-grid">
+          <!-- Canvas Video Display -->
+          <div class="video-container">
+            <video id="inputVideo" class="input-video" playsinline muted style="display:none;"></video>
+            <canvas id="outputCanvas" class="output-canvas"></canvas>
+
+            <div class="video-overlay-stats">
+              <div class="stat-pill">FPS: <span id="fpsDisplay">0 FPS</span></div>
+              <div class="stat-pill">Active Objects: <span id="countDisplay">0</span></div>
+              <div class="stat-pill">Tracker: <span style="color:var(--accent-emerald);">Centroid/IoU (SORT)</span></div>
+            </div>
+          </div>
+
+          <!-- Vision Sidebar -->
+          <div class="glass-card vision-sidebar">
+            <h3 style="font-size: 1.05rem;">Detected Objects</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">Real-time tracking leaderboard with unique frame IDs:</p>
+            <div id="detectedObjectsList" class="object-list"></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/task1_translator.js"></script>
+  <script src="js/task2_faq_chatbot.js"></script>
+  <script src="js/task3_music_generator.js"></script>
+  <script src="js/task4_object_detection.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

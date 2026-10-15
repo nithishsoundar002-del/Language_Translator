@@ -1,0 +1,37 @@
+[
+  {
+    "category": "CodeAlpha Internship",
+    "question": "What is CodeAlpha AI Internship program?",
+    "answer": "CodeAlpha's AI Internship is a hands-on program offering real-world experience in AI model development, machine learning workflows, NLP, computer vision, and AI software engineering."
+  },
+  {
+    "category": "CodeAlpha Internship",
+    "question": "How many tasks do I need to submit for completion?",
+    "answer": "To be eligible for the internship certificate, participants must complete a minimum of 2 or 3 tasks from the assigned domain."
+  },
+  {
+    "category": "CodeAlpha Internship",
+    "question": "What are the perks of completing the internship?",
+    "answer": "Perks include an Internship Offer Letter, QR-verified Completion Certificate, Unique ID Certificate, Letter of Recommendation (LOR based on performance), and Placement Support."
+  },
+  {
+    "category": "CodeAlpha Internship",
+    "question": "Where do I submit my completed project?",
+    "answer": "You must upload your code to GitHub in a repository named 'CodeAlpha_ProjectName' and submit the GitHub link along with a video explanation via the official WhatsApp submission form."
+  },
+  {
+    "category": "AI & ML",
+    "question": "What is Machine Learning?",
+    "answer": "Machine Learning (ML) is a branch of Artificial Intelligence focused on building systems that learn from data and improve performance over time without explicit programming."
+  },
+  {
+    "category": "AI & ML",
+    "question": "What is Natural Language Processing (NLP)?",
+    "answer": "Natural Language Processing (NLP) enables computers to understand, interpret, process, and generate human languages using algorithms like TF-IDF, Word Embeddings, Transformers, and LLMs."
+  },
+  {
+    "category": "AI & ML",
+    "question": "How does Cosine Similarity work in chatbot matching?",
+    "answer": "Cosine similarity calculates the dot product of two TF-IDF text vectors divided by the product of their lengths, measuring the cosine of the angle between them to determine semantic similarity."
+  }
+]
